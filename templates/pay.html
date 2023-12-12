@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+  <h3>Pay {{.Name}}</h3>
+  <form action="/pay?name={{.Name}}" method="post">
+    <label for="date">Date:</label>
+    <input type="date" name="PaymentDate" required />
+    <label for="Amount">Amount:</label>
+    <input type="number" name="Amount" required step="0.01"/>
+    <input type="submit" name="Submit" value="Pay!" />
+  </form>
+</body>
+
+</html>

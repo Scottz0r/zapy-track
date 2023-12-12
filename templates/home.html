@@ -7,19 +7,28 @@
       <table>
         <thead>
           <th>Name</th>
+          <th>Init. Amt.</th>
+          <th>Tgt Pmts.</th>
           <th>Remain Amt.</th>
           <th>Total Paid</th>
           <th>Num Pmts</th>
           <th>Pmt Amt<br/>per Period</th>
+          <th></th>
         </thead>
         <tbody>
           {{range .Purchases}}
             <tr>
               <td>{{.Name}}</td>
+              <td>{{.InitialAmount}}</td>
+              <td>{{.WantedPayments}}</td>
               <td>{{.RemainingAmount}}</td>
               <td>{{.TotalPaid}}</td>
               <td>{{.TotalPayments}}</td>
               <td>{{.PaymentAmount}}</td>
+              <td>
+                <a href="/details?name={{.Name}}">details</a>
+                <a href="/pay?name={{.Name}}">pay</a>
+              </td>
             </tr>
           {{end}}
         </tbody>

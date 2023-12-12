@@ -8,18 +8,6 @@
       "InitialAmount": 100000,
       "WantedNumPayments": 12,
       "Payments": [
-        {
-          "PaymentDate": "2023-12-08T10:28:43.9249744-06:00",
-          "PaymentAmount": 10000
-        },
-        {
-          "PaymentDate": "2023-12-08T10:28:43.9249744-06:00",
-          "PaymentAmount": 20000
-        },
-        {
-          "PaymentDate": "2023-01-01T00:00:00Z",
-          "PaymentAmount": 25000
-        }
       ]
     },
     {
@@ -30,18 +18,6 @@
       "InitialAmount": 10050,
       "WantedNumPayments": 3,
       "Payments": [
-        {
-          "PaymentDate": "2019-12-03T00:00:00Z",
-          "PaymentAmount": 3350
-        },
-        {
-          "PaymentDate": "2018-02-02T00:00:00Z",
-          "PaymentAmount": 4500
-        },
-        {
-          "PaymentDate": "2023-01-01T00:00:00Z",
-          "PaymentAmount": 1000
-        }
       ]
     }
   ],

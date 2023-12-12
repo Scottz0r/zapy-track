@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>Name:</td>
+        <td>{{.Name}}</td>
+      </tr>
+
+      <tr>
+        <td>Account:</td>
+        <td>{{.Account}}</td>
+      </tr>
+
+      <tr>
+        <td>Memo</td>
+        <td>{{.Memo}}</td>
+      </tr>
+
+      <tr>
+        <td>Purchase Date</td>
+        <td>{{.PurchaseDate}}</td>
+      </tr>
+
+      <tr>
+        <td>Initial Amount:</td>
+        <td>{{.InitialAmount}}</td>
+      </tr>
+      
+      <tr>
+        <td>Wanted Payments</td>
+        <td>{{.WantedPayments}}</td>
+      </tr>
+
+      <tr>
+        <td>Remaining Amount:</td>
+        <td>{{.RemainingAmount}}</td>
+      </tr>
+      
+      <tr>
+        <td>Total Paid:</td>
+        <td>{{.TotalPaid}}</td>
+      </tr>
+      
+      <tr>
+        <td>Total Payments</td>
+        <td>{{.TotalPayments}}</td>
+      </tr>
+      
+      <tr>
+        <td>Period Payment Amount:</td>
+        <td>{{.PeriodPaymentAmount}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Amount</thtdtd>
+      </tr>
+    </thead>
+    <tbody>
+      {{range .Payments}}
+        <tr>
+          <td>{{.Date}}</td>
+          <td>{{.Amount}}</td>
+        </tr>
+      {{end}}
+    </tbody>
+  </table>
+
+  <a href="/">home</a>
+
+</body>
+
+</html>

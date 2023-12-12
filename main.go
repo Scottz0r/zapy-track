@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	zeroaprlib "go-zero-apr-mgr/zero-apr-lib"
-	//"time"
+	"go-zero-apr-mgr/mvc"
+	za "go-zero-apr-mgr/zero-apr-lib"
 )
 
 func main() {
-	da, err := zeroaprlib.Connect("test.json")
+	da, err := za.Connect("test.json")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -18,5 +18,5 @@ func main() {
 	// 	fmt.Println(err)
 	// }
 
-	serverMain(da)
+	mvc.ServerMain(da)
 }
