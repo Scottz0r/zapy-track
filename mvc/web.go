@@ -37,7 +37,9 @@ func ServerMain(da *zeroaprlib.DataAccess) {
 	http.HandleFunc("/new", c.newHandler)
 	http.HandleFunc("/calc", c.calcHandler)
 
-	fmt.Println(http.ListenAndServe("localhost:8080", nil))
+	serverPath := "localhost:8080"
+	fmt.Println("Webserver listening on", serverPath)
+	fmt.Println(http.ListenAndServe(serverPath, nil))
 }
 
 // Method used to show a general error page.
