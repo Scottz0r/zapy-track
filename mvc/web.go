@@ -39,6 +39,7 @@ func ServerMain(da *zeroaprlib.DataAccess) {
 	http.HandleFunc("/pay", c.payHandler)
 	http.HandleFunc("/details", c.detailsHandler)
 	http.HandleFunc("/new", c.newHandler)
+	http.HandleFunc("/calc", c.calcHandler)
 
 	fmt.Println(http.ListenAndServe("localhost:8080", nil))
 }
@@ -51,6 +52,7 @@ func loadTemplates() (TemplateMap, error) {
 		"pay.html",
 		"details.html",
 		"new.html",
+		"calc.html",
 	}
 
 	for _, filename := range templateCofnig {

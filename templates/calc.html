@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        {{if not .HasOutput}}
+        <form action="/calc" method="post">
+            <div>
+                <label>Account</label>
+                <select name="account" >
+                    {{range .Accounts}}
+                    <option>{{.}}</option>
+                    {{end}}
+                </select>
+            </div>
+
+            <div>
+                <label>Balance</label>
+                <input type="number" step="0.01" name="balance">
+            </div>
+
+            <input type="submit" name="submit" value="Calculate">
+        </form>
+        {{end}}
+
+        {{if .HasOutput}}
+        <h2>Results</h2>
+        <table>
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td>Account</td>
+                    <td>{{.OutAccount}}</td>
+                </tr>
+                <tr>
+                    <td>Other Purchases</td>
+                    <td>{{.OtherPurchases}}</td>
+                </tr>
+                <tr>
+                    <td>Payment Amount</td>
+                    <td>{{.OutAmount}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Breakdown}}
+                <tr>
+                    <td>{{.PurName}}</td>
+                    <td>{{.PayAmount}}</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+
+        {{end}}
+
+        <a href="/">home</a>
+    </body>
+</html>
