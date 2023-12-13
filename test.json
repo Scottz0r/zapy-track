@@ -7,8 +7,7 @@
       "Date": "0001-01-01T00:00:00Z",
       "InitialAmount": 100000,
       "WantedNumPayments": 12,
-      "Payments": [
-      ]
+      "Payments": []
     },
     {
       "Name": "Test2",
@@ -18,7 +17,20 @@
       "InitialAmount": 10050,
       "WantedNumPayments": 3,
       "Payments": [
+        {
+          "PaymentDate": "2023-12-12T00:00:00Z",
+          "PaymentAmount": 1500
+        }
       ]
+    },
+    {
+      "Name": "Test3",
+      "Account": "CC1",
+      "Memo": "Test #3",
+      "Date": "2023-12-12T00:00:00Z",
+      "InitialAmount": 150048,
+      "WantedNumPayments": 15,
+      "Payments": null
     }
   ],
   "Version": "1.0"

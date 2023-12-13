@@ -4,6 +4,7 @@ import (
 	"fmt"
 	zeroaprlib "go-zero-apr-mgr/zero-apr-lib"
 	"html/template"
+	"math"
 	"net/http"
 	"path"
 )
@@ -21,6 +22,10 @@ func currencyToString(value int) string {
 	return fmt.Sprintf("%.2f", floatVal)
 }
 
+func floatToCurrency(value float64) int {
+	return int(math.Round(value * 100.0))
+}
+
 func ServerMain(da *zeroaprlib.DataAccess) {
 	templateMap, err := loadTemplates()
 	if err != nil {
@@ -33,6 +38,7 @@ func ServerMain(da *zeroaprlib.DataAccess) {
 	http.HandleFunc("/", c.homeHandler)
 	http.HandleFunc("/pay", c.payHandler)
 	http.HandleFunc("/details", c.detailsHandler)
+	http.HandleFunc("/new", c.newHandler)
 
 	fmt.Println(http.ListenAndServe("localhost:8080", nil))
 }
@@ -44,6 +50,7 @@ func loadTemplates() (TemplateMap, error) {
 		"home.html",
 		"pay.html",
 		"details.html",
+		"new.html",
 	}
 
 	for _, filename := range templateCofnig {
@@ -57,4 +64,14 @@ func loadTemplates() (TemplateMap, error) {
 	}
 
 	return templateMap, nil
+}
+
+// Method used to show a general error page.
+func (cntl *Controller) ErrorPage(w http.ResponseWriter, r *http.Request, message string) {
+	w.WriteHeader(http.StatusInternalServerError)
+
+	_, err := fmt.Fprintf(w, "Error: %s", message)
+	if err != nil {
+		fmt.Println("Error when showing error page:", err)
+	}
 }
