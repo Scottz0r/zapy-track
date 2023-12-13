@@ -3,7 +3,6 @@ package mvc
 import (
 	"fmt"
 	za "go-zero-apr-mgr/zero-apr-lib"
-	"math"
 	"net/http"
 	"strconv"
 )
@@ -28,7 +27,7 @@ func (cntl *Controller) calcHandler(w http.ResponseWriter, r *http.Request) {
 	} else if r.Method == "POST" {
 		cntl.calcPost(w, r)
 	} else {
-		cntl.ErrorPage(w, r, "Invalid operation")
+		cntl.ErrorPage(w, "Invalid operation")
 	}
 }
 
@@ -38,29 +37,34 @@ func (cntl *Controller) calcGet(w http.ResponseWriter, r *http.Request) {
 	vm := CalcViewModel{}
 	vm.Accounts = getUniqueAccounts(allPurchases)
 
-	cntl.templateMap["calc.html"].Execute(w, vm)
+	cntl.ExecuteView(w, "calc", vm)
 }
 
 func (cntl *Controller) calcPost(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-		cntl.ErrorPage(w, r, err.Error())
+		cntl.ErrorPage(w, err.Error())
 		return
 	}
 
 	accountName := r.Form.Get("account")
 	if accountName == "" {
-		cntl.ErrorPage(w, r, "Account not selected")
+		cntl.ErrorPage(w, "Account not selected")
 		return
 	}
 
 	rawBalance := r.Form.Get("balance")
 	parsedAmount, err := strconv.ParseFloat(rawBalance, 64)
 	if err != nil {
-		cntl.ErrorPage(w, r, err.Error())
+		cntl.ErrorPage(w, err.Error())
 		return
 	}
 
-	balanceCurrency := int(math.Round(parsedAmount * 100))
+	balanceCurrency := floatToCurrency(parsedAmount)
+	if balanceCurrency <= 0 {
+		cntl.ErrorPage(w, "Balance must be non-zero and positive")
+		return
+	}
+
 	pmtAmount, otherPurchases, breakdowns := calcPayment(cntl.da, accountName, balanceCurrency)
 
 	allPurchases := cntl.da.GetAllPurchases()
@@ -74,7 +78,7 @@ func (cntl *Controller) calcPost(w http.ResponseWriter, r *http.Request) {
 		Breakdown:      breakdowns,
 	}
 
-	cntl.templateMap["calc.html"].Execute(w, vm)
+	cntl.ExecuteView(w, "calc", vm)
 }
 
 func getUniqueAccounts(allPurchases []za.Purchase) []string {
@@ -128,4 +132,4 @@ func calcPayment(da *za.DataAccess, account string, balanceCurrency int) (int, i
 // Current balance - (total remain) + sumPayments
 // 	  |-------------------|
 //		  gets how much added not to tracked purchase
-//		  then add in payments to make.
+//		  									then add in payments to make.

@@ -2,84 +2,99 @@
 <html>
 
 <head>
+  <link href="/static/bootstrap.css" rel="stylesheet">
+  <script src="/static/bootstrap.bundle.js"></script>
 
+  <title>0% APR Manager ~ Details</title>
 </head>
 
 <body>
+  {{template "navbar"}}
 
-  <table>
-    <tbody>
-      <tr>
-        <td>Name:</td>
-        <td>{{.Name}}</td>
-      </tr>
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
 
-      <tr>
-        <td>Account:</td>
-        <td>{{.Account}}</td>
-      </tr>
+        <h3>Details for {{.Name}}</h3>
 
-      <tr>
-        <td>Memo</td>
-        <td>{{.Memo}}</td>
-      </tr>
-
-      <tr>
-        <td>Purchase Date</td>
-        <td>{{.PurchaseDate}}</td>
-      </tr>
-
-      <tr>
-        <td>Initial Amount:</td>
-        <td>{{.InitialAmount}}</td>
-      </tr>
+        <table class="mb-5">
+          <tbody>
+            <tr>
+              <td>Name:</td>
+              <td>{{.Name}}</td>
+            </tr>
       
-      <tr>
-        <td>Wanted Payments</td>
-        <td>{{.WantedPayments}}</td>
-      </tr>
-
-      <tr>
-        <td>Remaining Amount:</td>
-        <td>{{.RemainingAmount}}</td>
-      </tr>
+            <tr>
+              <td>Account:</td>
+              <td>{{.Account}}</td>
+            </tr>
       
-      <tr>
-        <td>Total Paid:</td>
-        <td>{{.TotalPaid}}</td>
-      </tr>
+            <tr>
+              <td>Memo</td>
+              <td>{{.Memo}}</td>
+            </tr>
       
-      <tr>
-        <td>Total Payments</td>
-        <td>{{.TotalPayments}}</td>
-      </tr>
+            <tr>
+              <td>Purchase Date</td>
+              <td>{{.PurchaseDate}}</td>
+            </tr>
       
-      <tr>
-        <td>Period Payment Amount:</td>
-        <td>{{.PeriodPaymentAmount}}</td>
-      </tr>
-    </tbody>
-  </table>
+            <tr>
+              <td>Initial Amount:</td>
+              <td>{{.InitialAmount}}</td>
+            </tr>
+            
+            <tr>
+              <td>Wanted Payments</td>
+              <td>{{.WantedPayments}}</td>
+            </tr>
+      
+            <tr>
+              <td>Remaining Amount:</td>
+              <td>{{.RemainingAmount}}</td>
+            </tr>
+            
+            <tr>
+              <td>Total Paid:</td>
+              <td>{{.TotalPaid}}</td>
+            </tr>
+            
+            <tr>
+              <td>Total Payments</td>
+              <td>{{.TotalPayments}}</td>
+            </tr>
+            
+            <tr>
+              <td>Period Payment Amount:</td>
+              <td>{{.PeriodPaymentAmount}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Amount</thtdtd>
-      </tr>
-    </thead>
-    <tbody>
-      {{range .Payments}}
-        <tr>
-          <td>{{.Date}}</td>
-          <td>{{.Amount}}</td>
-        </tr>
-      {{end}}
-    </tbody>
-  </table>
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
+        <h3>Payments</h3>
 
-  <a href="/">home</a>
-
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Amount</thtdtd>
+            </tr>
+          </thead>
+          <tbody>
+            {{range .Payments}}
+              <tr>
+                <td>{{.Date}}</td>
+                <td>{{.Amount}}</td>
+              </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </body>
-
 </html>

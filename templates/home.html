@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <link href="/static/bootstrap.css" rel="stylesheet">
+      <script src="/static/bootstrap.bundle.js"></script>
 
+      <title>0% APR Manager ~ Home</title>
     </head>
     <body>
-      <table>
-        <thead>
-          <th>Name</th>
-          <th>Init. Amt.</th>
-          <th>Tgt Pmts.</th>
-          <th>Remain Amt.</th>
-          <th>Total Paid</th>
-          <th>Num Pmts</th>
-          <th>Pmt Amt<br/>per Period</th>
-          <th></th>
-        </thead>
-        <tbody>
-          {{range .Purchases}}
-            <tr>
-              <td>{{.Name}}</td>
-              <td>{{.InitialAmount}}</td>
-              <td>{{.WantedPayments}}</td>
-              <td>{{.RemainingAmount}}</td>
-              <td>{{.TotalPaid}}</td>
-              <td>{{.TotalPayments}}</td>
-              <td>{{.PaymentAmount}}</td>
-              <td>
-                <a href="/details?name={{.Name}}">details</a>
-                <a href="/pay?name={{.Name}}">pay</a>
-              </td>
-            </tr>
-          {{end}}
-        </tbody>
-      </table>
+      {{template "navbar"}}
 
-      <a href="/new">new</a>
-      <a href="/calc">payment calc</a>
-
+      <div class="container mt-3">
+        <h2>Summary</h2>
+        <table class="table">
+          <thead>
+            <th>Name</th>
+            <th>Init. Amt.</th>
+            <th>Tgt Pmts.</th>
+            <th>Remain Amt.</th>
+            <th>Total Paid</th>
+            <th>Num Pmts</th>
+            <th>Pmt Amt</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            {{range .Purchases}}
+              <tr>
+                <td>{{.Name}}</td>
+                <td>{{.InitialAmount}}</td>
+                <td>{{.WantedPayments}}</td>
+                <td>{{.RemainingAmount}}</td>
+                <td>{{.TotalPaid}}</td>
+                <td>{{.TotalPayments}}</td>
+                <td>{{.PaymentAmount}}</td>
+                <td>
+                  <a href="/details?name={{.Name}}">details</a>
+                  <a href="/pay?name={{.Name}}">pay</a>
+                </td>
+              </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
     </body>
 </html>

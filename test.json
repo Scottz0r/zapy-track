@@ -20,8 +20,35 @@
         {
           "PaymentDate": "2023-12-12T00:00:00Z",
           "PaymentAmount": 1500
+        },
+        {
+          "PaymentDate": "2023-12-12T00:00:00Z",
+          "PaymentAmount": 1500
         }
       ]
+    },
+    {
+      "Name": "Test3",
+      "Account": "CC1",
+      "Memo": "",
+      "Date": "2023-12-01T00:00:00Z",
+      "InitialAmount": 100000,
+      "WantedNumPayments": 6,
+      "Payments": [
+        {
+          "PaymentDate": "2023-12-14T00:00:00Z",
+          "PaymentAmount": 10000
+        }
+      ]
+    },
+    {
+      "Name": "Test 3",
+      "Account": "CC3",
+      "Memo": "Test",
+      "Date": "2023-12-13T00:00:00Z",
+      "InitialAmount": 50000,
+      "WantedNumPayments": 12,
+      "Payments": null
     }
   ],
   "Version": "1.0"

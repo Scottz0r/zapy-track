@@ -2,18 +2,35 @@
 <html>
 
 <head>
+  <link href="/static/bootstrap.css" rel="stylesheet">
+  <script src="/static/bootstrap.bundle.js"></script>
 
+  <title>0% APR Manager ~ Pay</title>
 </head>
 
 <body>
-  <h3>Pay {{.Name}}</h3>
-  <form action="/pay?name={{.Name}}" method="post">
-    <label for="date">Date:</label>
-    <input type="date" name="PaymentDate" required />
-    <label for="Amount">Amount:</label>
-    <input type="number" name="Amount" required step="0.01"/>
-    <input type="submit" name="Submit" value="Pay!" />
-  </form>
+  {{template "navbar"}}
+
+  <div class="container mt-3">
+    <h3>Pay {{.Name}}</h3>
+
+    <form action="/pay?name={{.Name}}" method="post">
+      <div class="row mb-3">
+        <div class="col-lg-3">
+          <label for="paymentDate" class="form-label">Date:</label>
+          <input type="date" name="paymentDate" id="paymentDate" class="form-control" required />
+        </div>
+  
+        <div class="col-lg-3">
+          <label for="amount" class="form-label">Amount:</label>
+          <input type="number" name="amount" id="amount" required step="0.01" class="form-control"/>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Pay</button>
+      <a href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+
 </body>
 
 </html>

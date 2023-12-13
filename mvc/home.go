@@ -19,10 +19,10 @@ type HomeViewModel struct {
 	Purchases []PurchaseSummaryViewModel
 }
 
-func (controller *Controller) homeHandler(w http.ResponseWriter, r *http.Request) {
+func (cntl *Controller) homeHandler(w http.ResponseWriter, r *http.Request) {
 	vm := HomeViewModel{}
 
-	purchases := controller.da.GetAllPurchases()
+	purchases := cntl.da.GetAllPurchases()
 	for i := range purchases {
 		summary := za.CalculatePurchaseSummary(&purchases[i])
 
@@ -39,5 +39,5 @@ func (controller *Controller) homeHandler(w http.ResponseWriter, r *http.Request
 		vm.Purchases = append(vm.Purchases, purVm)
 	}
 
-	controller.templateMap["home.html"].Execute(w, vm)
+	cntl.ExecuteView(w, "home", vm)
 }

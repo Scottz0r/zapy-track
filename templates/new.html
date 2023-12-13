@@ -1,44 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
 
-    </head>
-    <body>
+<head>
+  <link href="/static/bootstrap.css" rel="stylesheet">
+  <script src="/static/bootstrap.bundle.js"></script>
+
+  <title>0% APR Manager ~ New Purchase</title>
+</head>
+
+<body>
+  {{template "navbar"}}
+
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
         <h2>New Purchase</h2>
+
         <form action="/new" method="post">
-            <div>
-                <label>Name</label>
-                <input type="text" name="name">
-            </div>
-    
-            <div>
-                <label>Account</label>
-                <input type="text" name="account">
-            </div>
-    
-            <div>
-                <label>Memo</label>
-                <input type="text" name="memo">
-            </div>
-    
-            <div>
-                <label>Purchase Date</label>
-                <input type="date" name="purchaseDate">
-            </div>
-    
-            <div>
-                <label>Amount</label>
-                <input type="number" step="0.01" name="amount">
-            </div>
-    
-            <div>
-                <label>Wanted Number Payments</label>
-                <input type="number" step="1" name="numPayments">
-            </div>
 
-            <input type="submit" name="submit" value="Add">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="account" class="form-label">Account</label>
+            <input type="text" name="account" id="account" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="memo" class="form-label">Memo</label>
+            <input type="text" name="memo" id="memo" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="purchaseDate" class="form-label">Purchase Date</label>
+            <input type="date" name="purchaseDate" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" step="0.01" name="amount" id="amount" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="numPayments" class="form-label">Wanted Number Payments</label>
+            <input type="number" step="1" name="numPayments" id="numPayments" class="form-control" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Add</button>
+          <a href="/" class="btn btn-secondary">Cancel</a>
         </form>
+      </div>
+    </div>
+  </div>
+</body>
 
-        <a href="/">home</a>
-    </body>
 </html>

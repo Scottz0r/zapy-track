@@ -31,7 +31,7 @@ func (cntl *Controller) detailsHandler(w http.ResponseWriter, r *http.Request) {
 	// Send 404 if the purchase does not exist.
 	pur := cntl.da.GetPurchase(purchaseName)
 	if pur == nil {
-		r.Response.StatusCode = http.StatusNotFound
+		cntl.ErrorPage(w, "Purchase not found")
 		return
 	}
 
@@ -58,5 +58,5 @@ func (cntl *Controller) detailsHandler(w http.ResponseWriter, r *http.Request) {
 		vm.Payments = append(vm.Payments, payVm)
 	}
 
-	cntl.templateMap["details.html"].Execute(w, vm)
+	cntl.ExecuteView(w, "details", vm)
 }
