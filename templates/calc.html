@@ -44,29 +44,20 @@
     {{if .HasOutput}}
     <div class="row justify-content-center">
       <div class="col-lg-4">
-        <h3>Results</h3>
-        <table class="mb-5">
-          <thead></thead>
-          <tbody>
-            <tr>
-              <td>Account</td>
-              <td>{{.OutAccount}}</td>
-            </tr>
-            <tr>
-              <td>Other Purchases</td>
-              <td>{{.OtherPurchases}}</td>
-            </tr>
-            <tr>
-              <td>Payment Amount</td>
-              <td>{{.OutAmount}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-4">
+        <h3>Results</h3>
+        <div class="row mb-3">
+
+          <dt class="col-lg-6">Account</dt>
+          <dd class="col-lg-6">{{.OutAccount}}</dd>
+
+          <dt class="col-lg-6">Other Purchases</dt>
+          <dd class="col-lg-6">{{.OtherPurchases}}</dd>
+
+          <dt class="col-lg-6">Payment Amount</dt>
+          <dd class="col-lg-6">{{.OutAmount}}</dd>
+        </div>
+
         <h4>Purchase Breakdown</h4>
         <table class="table">
           <thead>

@@ -12,71 +12,46 @@
   {{template "navbar"}}
 
   <div class="container mt-3">
-    <div class="row justify-content-center">
-      <div class="col-lg-4">
 
-        <h3>Details for {{.Name}}</h3>
+    <h3 class="text-center">Details for {{.Name}}</h3>
 
-        <table class="mb-5">
-          <tbody>
-            <tr>
-              <td>Name:</td>
-              <td>{{.Name}}</td>
-            </tr>
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>Overview</h3>
+        <dl class="row">
+          <dt class="col-lg-4">Name:</dt>
+          <dd class="col-lg-8">{{.Name}}</dd>
       
-            <tr>
-              <td>Account:</td>
-              <td>{{.Account}}</td>
-            </tr>
+          <dt class="col-lg-4">Account:</dt>
+          <dd class="col-lg-8">{{.Account}}</dd>
       
-            <tr>
-              <td>Memo</td>
-              <td>{{.Memo}}</td>
-            </tr>
+          <dt class="col-lg-4">Memo</dt>
+          <dd class="col-lg-8">{{.Memo}}</dd>
       
-            <tr>
-              <td>Purchase Date</td>
-              <td>{{.PurchaseDate}}</td>
-            </tr>
-      
-            <tr>
-              <td>Initial Amount:</td>
-              <td>{{.InitialAmount}}</td>
-            </tr>
-            
-            <tr>
-              <td>Wanted Payments</td>
-              <td>{{.WantedPayments}}</td>
-            </tr>
-      
-            <tr>
-              <td>Remaining Amount:</td>
-              <td>{{.RemainingAmount}}</td>
-            </tr>
-            
-            <tr>
-              <td>Total Paid:</td>
-              <td>{{.TotalPaid}}</td>
-            </tr>
-            
-            <tr>
-              <td>Total Payments</td>
-              <td>{{.TotalPayments}}</td>
-            </tr>
-            
-            <tr>
-              <td>Period Payment Amount:</td>
-              <td>{{.PeriodPaymentAmount}}</td>
-            </tr>
-          </tbody>
-        </table>
+          <dt class="col-lg-4">Purchase Date</dt>
+          <dd class="col-lg-8">{{.PurchaseDate}}</dd>
+    
+          <dt class="col-lg-4">Initial Amount:</dt>
+          <dd class="col-lg-8">{{.InitialAmount}}</dd>
+    
+          <dt class="col-lg-4">Wanted Payments</dt>
+          <dd class="col-lg-8">{{.WantedPayments}}</dd>
+    
+          <dt class="col-lg-4">Remaining Amount:</dt>
+          <dd class="col-lg-8">{{.RemainingAmount}}</dd>
+          
+          <dt class="col-lg-4">Total Paid:</dt>
+          <dd class="col-lg-8">{{.TotalPaid}}</dd>
+    
+          <dt class="col-lg-4">Total Payments</dt>
+          <dd class="col-lg-8">{{.TotalPayments}}</dd>
+    
+          <dt class="col-lg-4">Payment Amount:</dt>
+          <dd class="col-lg-8">{{.PeriodPaymentAmount}}</dd>
+        </dl>
       </div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <h3>Payments</h3>
-
         <table class="table">
           <thead>
             <tr>
