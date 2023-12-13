@@ -13,10 +13,5 @@ func main() {
 		return
 	}
 
-	// err = consoleLoop(da)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
 	mvc.ServerMain(da)
 }
