@@ -22,15 +22,6 @@
           "PaymentAmount": 1500
         }
       ]
-    },
-    {
-      "Name": "Test3",
-      "Account": "CC1",
-      "Memo": "Test #3",
-      "Date": "2023-12-12T00:00:00Z",
-      "InitialAmount": 150048,
-      "WantedNumPayments": 15,
-      "Payments": null
     }
   ],
   "Version": "1.0"

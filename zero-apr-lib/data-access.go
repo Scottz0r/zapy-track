@@ -2,6 +2,8 @@ package zeroaprlib
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"io"
 	"os"
 	"time"
@@ -36,36 +38,15 @@ type Purchase struct {
 }
 
 type DataAccess struct {
-	filename  string
-	purchases []Purchase
+	filename string
 }
 
 func Connect(path string) (*DataAccess, error) {
-	dataFile, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer dataFile.Close()
-
-	allData, err := io.ReadAll(dataFile)
-	if err != nil {
-		return nil, err
-	}
-
-	var root dataRoot
-	err = json.Unmarshal(allData, &root)
-	if err != nil {
-		return nil, err
-	}
-
-	da := DataAccess{path, root.Purchases}
+	da := DataAccess{path}
 	return &da, nil
 }
 
-func (da *DataAccess) Save() error {
-	// Create root object that holds data and metadata
-	root := dataRoot{da.purchases, "1.0"}
-
+func (da *DataAccess) save(root *dataRoot) error {
 	rawBytes, err := json.MarshalIndent(root, "", "  ")
 	if err != nil {
 		return err
@@ -86,44 +67,85 @@ func (da *DataAccess) Save() error {
 }
 
 func (da *DataAccess) GetAllPurchases() []Purchase {
-	return da.purchases
+	loaded, err := da.loadFile()
+	if err != nil {
+		// TODO: error handling.
+		fmt.Println("Error:", err.Error())
+	}
+
+	return loaded.Purchases
 }
 
 func (da *DataAccess) GetPurchase(name string) *Purchase {
-	return da.findPurchaseByName(name)
+	root, err := da.loadFile()
+	if err != nil {
+		return nil
+	}
+
+	return findPurchaseByName(root, name)
 }
 
 func (da *DataAccess) PurchaseExists(name string) bool {
-	return da.findPurchaseByName(name) != nil
+	root, err := da.loadFile()
+	if err != nil {
+		return false
+	}
+
+	return findPurchaseByName(root, name) != nil
 }
 
 func (da *DataAccess) AddPurchase(newPurchase Purchase) error {
-	anyExist := da.findPurchaseByName(newPurchase.Name)
+	root, err := da.loadFile()
+	if err != nil {
+		return err
+	}
+
+	anyExist := findPurchaseByName(root, newPurchase.Name)
 	if anyExist != nil {
 		return DataError{"Purchase with name already exists"}
 	}
 
-	da.purchases = append(da.purchases, newPurchase)
+	root.Purchases = append(root.Purchases, newPurchase)
+
+	err = da.save(root)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
 
 // Add a Payment to the purchase identified by the given name.
 func (da *DataAccess) AddPayment(purchaseName string, newPayment Payment) error {
+	root, err := da.loadFile()
+	if err != nil {
+		return err
+	}
+
 	// Must have a valid and existing purchase.
-	pur := da.findPurchaseByName(purchaseName)
+	pur := findPurchaseByName(root, purchaseName)
 	if pur == nil {
 		return DataError{"Purchase not found"}
 	}
 
 	pur.Payments = append(pur.Payments, newPayment)
 
+	err = da.save(root)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
 func (da *DataAccess) RemovePayment(purchaseName string, index int) error {
+	root, err := da.loadFile()
+	if err != nil {
+		return err
+	}
+
 	// Must have a valid and existing purchase.
-	pur := da.findPurchaseByName(purchaseName)
+	pur := findPurchaseByName(root, purchaseName)
 	if pur == nil {
 		return DataError{"Purchase not found"}
 	}
@@ -134,18 +156,47 @@ func (da *DataAccess) RemovePayment(purchaseName string, index int) error {
 
 	pur.Payments = append(pur.Payments[:index], pur.Payments[index+1:]...)
 
+	da.save(root)
+
 	return nil
 }
 
 // Find a purchase with the given key/name
-func (da *DataAccess) findPurchaseByName(name string) *Purchase {
+func findPurchaseByName(data *dataRoot, name string) *Purchase {
 	// Must use index here. Otherwise, the element will be copied, and results will not be pointing to the
 	// expected address.
-	for i := range da.purchases {
-		if da.purchases[i].Name == name {
-			return &da.purchases[i]
+	for i := range data.Purchases {
+		if data.Purchases[i].Name == name {
+			return &data.Purchases[i]
 		}
 	}
 
 	return nil
+}
+
+func (da *DataAccess) loadFile() (*dataRoot, error) {
+	// Handle case where the file does not already exist.
+	if _, err := os.Stat(da.filename); errors.Is(err, os.ErrNotExist) {
+		root := dataRoot{Version: "1.0"}
+		return &root, nil
+	} else {
+		reader, err := os.Open(da.filename)
+		if err != nil {
+			return nil, err
+		}
+		defer reader.Close()
+
+		allData, err := io.ReadAll(reader)
+		if err != nil {
+			return nil, err
+		}
+
+		var root dataRoot
+		err = json.Unmarshal(allData, &root)
+		if err != nil {
+			return nil, err
+		}
+
+		return &root, nil
+	}
 }

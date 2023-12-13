@@ -146,11 +146,6 @@ func addPurchase(da *zeroaprlib.DataAccess) error {
 		return err
 	}
 
-	err = da.Save()
-	if err != nil {
-		return err
-	}
-
 	fmt.Println("Purchase added successfully")
 	return nil
 }
@@ -180,11 +175,6 @@ func addPayment(da *zeroaprlib.DataAccess, name string) error {
 	}
 
 	err = da.AddPayment(name, newPayment)
-	if err != nil {
-		return err
-	}
-
-	err = da.Save()
 	if err != nil {
 		return err
 	}

@@ -83,11 +83,5 @@ func (cntl *Controller) newPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = cntl.da.Save()
-	if err != nil {
-		cntl.ErrorPage(w, r, err.Error())
-		return
-	}
-
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

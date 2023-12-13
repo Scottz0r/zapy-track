@@ -63,10 +63,5 @@ func (cntl *Controller) tryMakePayment(r *http.Request) error {
 		return err
 	}
 
-	err = cntl.da.Save()
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
